@@ -1,18 +1,49 @@
 <DOCTYPE=html>
-<script type="text/javascript">
 
-function computerPlay(){
+<button id="rock"> ROCK </button>
+<button id="paper"> PAPER </button>
+<button id="scissors"> SCISSORS </button>
+
+<div class="result"></div>
+
+<div class="running-totals"></div>
+
+<script type="text/javascript">
+let playerWins = 0;
+let computerWins = 0;
+
+  const totals = document.querySelector(".running-totals");
+const result = document.querySelector('.result');
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+  button.addEventListener('click',() => {
+  updateResult(rps(button.id, computerPlay()));
+  });
+});
+
+const computerPlay = () => {
 let compChoice = Math.floor(Math.random() * 3) + 1;
 return compChoice == 1 ? "rock"
       : compChoice == 2 ? "paper"
       : compChoice == 3 ? "scissors"
       : "error";
 }
-
+const updateResult = upd8 => {
+  if(upd8.indexOf("You win") != -1) {playerWins++}
+  if(upd8.indexOf("You lose") != -1) {computerWins++}
+totals.textContent = "Player wins: " + playerWins + " | Computer wins: " + computerWins;
+if(playerWins == 5 || computerWins == 5 ) {
+result.textContent = "Game Over! Final score: Player: " + playerWins + " | Computer: " + computerWins;
+playerWins = 0;
+computerWins = 0;
+}
+}
 
 function rps(playerSelection, computerSelection) {
-
-  console.log("Player selection: " + playerSelection + "\n Computer selection: " + computerSelection);
+  console.log("Player selection was: " + playerSelection);
+  console.log("Computer selection was: " + computerSelection);
+  result.textContent = "Player selection: " + playerSelection + " | Computer selection: " + computerSelection;
 
 if(playerSelection == "rock"){
   switch(computerSelection){
@@ -58,31 +89,7 @@ else if(playerSelection == "scissors"){
 }
 
 }
-function reset() {
-  playerWins = 0;
-  computerWins = 0;
-  draws = 0;
-  console.log("Game complete!")
-}
-function game() {
-let playerWins = 0;
-let computerWins = 0;
-let draws = 0;
-while(playerWins < 5 && computerWins < 5) {
-  let playerChoice = prompt("Please enter rock, paper, or scissors").toLowerCase();
-  let result = rps(playerChoice, computerPlay());
 
-  if(result.indexOf("You win") != -1) {
-      playerWins++;
-  } else if(result.indexOf("You lose") != -1) {
-    computerWins++;
-  }
-  if(playerWins >= 5 || computerWins >= 5) reset();
-  console.log("Player wins: " + playerWins + "\n Computer wins: " + computerWins);
-}
-
-}
-game();
 </script>
 
 </html>

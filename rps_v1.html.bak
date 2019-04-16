@@ -1,5 +1,7 @@
+<DOCTYPE=html>
+<script type="text/javascript">
 
-function computerPlay() {
+function computerPlay(){
 let compChoice = Math.floor(Math.random() * 3) + 1;
 return compChoice == 1 ? "rock"
       : compChoice == 2 ? "paper"
@@ -56,29 +58,31 @@ else if(playerSelection == "scissors"){
 }
 
 }
+function reset() {
+  playerWins = 0;
+  computerWins = 0;
+  draws = 0;
+  console.log("Game complete!")
+}
 function game() {
 let playerWins = 0;
 let computerWins = 0;
 let draws = 0;
-while(playerWins < 5 && computerWins < 5){
+while(playerWins < 5 && computerWins < 5) {
   let playerChoice = prompt("Please enter rock, paper, or scissors").toLowerCase();
   let result = rps(playerChoice, computerPlay());
-  console.log("result: " + result);
-  switch (result) {
-    case result.indexOf("You win") > -1:
-    console.log("found the index");
-      playerWins ++;
-      break;
-    case result.indexOf("You lose") > -1:
-    console.log("loss index");
+
+  if(result.indexOf("You win") != -1) {
+      playerWins++;
+  } else if(result.indexOf("You lose") != -1) {
     computerWins++;
-    break;
-    default:
-    draws++;
   }
+  if(playerWins >= 5 || computerWins >= 5) reset();
   console.log("Player wins: " + playerWins + "\n Computer wins: " + computerWins);
 }
 
 }
 game();
 </script>
+
+</html>
